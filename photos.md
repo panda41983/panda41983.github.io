@@ -4,4 +4,5 @@ title: Photos
 permalink: /photography
 ---
 
-![Mary Laska](mary.png)
+![Mary Laska](images/mary.png)
+<img src="images/mary.png" alt="mary" width="50%"/>
