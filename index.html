@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>🐝 Elsie Bee — Portfolio</title>
+  <meta name="description" content="Resume, photography, and tutoring — artsy pastel portfolio" />
+  <style>
+    :root{
+      --bg: #fffafc;           /* near-white with a blush */
+      --text: #1f2937;         /* slate-800 */
+      --muted: #6b7280;        /* gray-500 */
+      --card: #ffffff;
+      --ring: rgba(31,41,55,.12);
+      /* Pastel accents */
+      --lav: #c7b8ff;  /* lavender */
+      --pink:#ffd1e6;  /* pink */
+      --mint:#bfffe3;  /* mint */
+      --peach:#ffd9b5; /* peach */
+      --lemon:#fff2a8; /* lemon */
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+      color:var(--text);
+      background:
+        radial-gradient(60rem 40rem at 10% -10%, var(--lav) 0 30%, transparent 31%),
+        radial-gradient(50rem 36rem at 110% 10%, var(--mint) 0 28%, transparent 29%),
+        radial-gradient(40rem 28rem at -10% 90%, var(--pink) 0 30%, transparent 31%),
+        radial-gradient(30rem 24rem at 90% 100%, var(--lemon) 0 35%, transparent 36%),
+        var(--bg);
+      background-attachment: fixed;
+      scroll-behavior: smooth;
+    }
+
+    .container{max-width:1100px;margin:0 auto;padding:24px}
+    header{position:sticky;top:0;backdrop-filter:saturate(1.2) blur(10px);background:color-mix(in oklab, var(--bg) 70%, white 30%);border-bottom:1px solid #eee;z-index:50}
+    .nav{display:flex;align-items:center;gap:16px;justify-content:space-between}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:18px}
+    .brand .logo{width:28px;height:28px;display:grid;place-items:center;background:conic-gradient(from 0deg, var(--lav), var(--pink), var(--peach), var(--mint), var(--lav));border-radius:9px;box-shadow:0 6px 18px rgba(0,0,0,.08)}
+    nav a{padding:10px 12px;border-radius:12px;text-decoration:none;color:var(--text);font-weight:600}
+    nav a:hover{background:rgba(0,0,0,.04)}
+
+    .hero{padding:64px 0 36px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+    @media (max-width:900px){.hero{grid-template-columns:1fr}}
+    .hero h1{font-size:clamp(28px,4.5vw,44px);line-height:1.15;margin:0 0 10px}
+    .hero p.lead{font-size:clamp(16px,2.2vw,20px);color:var(--muted);margin:0 0 18px}
+    .chip-row{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 24px}
+    .chip{padding:8px 12px;border-radius:999px;background:var(--card);box-shadow:0 2px 0 0 var(--ring), 0 10px 20px rgba(0,0,0,.04);border:1px solid #f1f5f9;font-weight:700}
+    .cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{padding:12px 16px;border-radius:14px;border:1px solid #e5e7eb;background:var(--card);font-weight:800;text-decoration:none;color:var(--text);box-shadow:0 6px 14px rgba(0,0,0,.06)}
+    .btn.primary{background:linear-gradient(135deg, var(--lav), var(--pink));border:none;color:#111}
+    .btn:hover{transform:translateY(-1px)}
+
+    .card{background:var(--card);border-radius:20px;border:1px solid #eef2f7;box-shadow:0 12px 30px rgba(0,0,0,.06)}
+
+    section{scroll-margin-top:80px}
+    .section-title{font-size:26px;margin:0 0 10px}
+    .section-sub{color:var(--muted);margin:0 0 22px}
+
+    /* Resume */
+    .resume{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width:900px){.resume{grid-template-columns:1fr}}
+    .resume .card{padding:20px}
+    .resume h3{margin:0 0 4px}
+    .resume .meta{color:var(--muted);font-size:14px;margin-bottom:10px}
+    .list{display:grid;gap:12px;margin:10px 0 0;padding:0;list-style:none}
+    .list li{display:flex;gap:10px}
+    .dot{width:10px;height:10px;border-radius:50%;background:var(--mint);margin-top:8px;box-shadow:0 0 0 3px color-mix(in oklab, var(--mint) 40%, white 60%)}
+
+    /* Gallery */
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:10px}
+    .grid .ph{aspect-ratio:4/3;border-radius:16px;overflow:hidden;cursor:pointer;border:1px solid #eee;box-shadow:0 8px 20px rgba(0,0,0,.05)}
+    .grid img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .25s}
+    .grid .ph:hover img{transform:scale(1.04)}
+    .span-6{grid-column:span 6}
+    .span-4{grid-column:span 4}
+    .span-8{grid-column:span 8}
+    @media (max-width:900px){.span-8,.span-6,.span-4{grid-column:span 12}}
+
+    /* Lightbox */
+    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;padding:24px;z-index:100}
+    .lightbox.open{display:flex}
+    .lightbox img{max-width:min(1100px,92vw);max-height:85vh;border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+    .lightbox button{position:absolute;top:20px;right:20px;background:var(--card);border:0;border-radius:12px;padding:10px 12px;font-weight:800;cursor:pointer}
+
+    /* Tutoring */
+    .tutor-wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:16px;align-items:center}
+    @media (max-width:900px){.tutor-wrap{grid-template-columns:1fr}}
+    .badge{display:inline-block;padding:6px 10px;border-radius:999px;background:linear-gradient(90deg,var(--mint),var(--peach));font-weight:800;border:1px solid #e5e7eb}
+    .features{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+    .feat{padding:14px;border-radius:14px;border:1px solid #eef2f7;background:color-mix(in oklab,var(--card) 70%, var(--mint) 30%)}
+
+    footer{margin:36px 0 20px;color:var(--muted);text-align:center}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand"><span class="logo">🐝</span> <span>Elsie Bee</span></div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#resume">Resume</a>
+        <a href="#photos">Photography</a>
+        <a href="#tutoring">Tutoring</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="home" class="container">
+    <section class="hero">
+      <div>
+        <h1>Artsy, colorful, and a little bit bee‑yond ordinary.</h1>
+        <p class="lead">I’m Elsie — a CS student, photographer, and tutor. Welcome to my pastel portfolio: projects, pictures, and how I can help you learn.</p>
+        <div class="chip-row">
+          <span class="chip">CS • ML • Data</span>
+          <span class="chip">Portraits • Street • Travel</span>
+          <span class="chip">Math • Programming • SAT</span>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="#resume">View Resume</a>
+          <a class="btn" href="#photos">See Photography</a>
+          <a class="btn" href="#tutoring">Book Tutoring</a>
+        </div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;display:grid;place-items:center;min-height:280px">
+        <!-- Decorative collage placeholder -->
+        <svg viewBox="0 0 600 400" width="100%" height="100%" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="var(--lav)"/>
+              <stop offset="1" stop-color="var(--pink)"/>
+            </linearGradient>
+            <linearGradient id="g2" x1="0" x2="1">
+              <stop offset="0" stop-color="var(--mint)"/>
+              <stop offset="1" stop-color="var(--peach)"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="600" height="400" fill="url(#g1)"/>
+          <circle cx="470" cy="110" r="90" fill="url(#g2)" opacity=".9"/>
+          <rect x="60" y="60" width="180" height="240" rx="14" fill="#fff" opacity=".9"/>
+          <rect x="85" y="85" width="130" height="90" rx="12" fill="#f8fafc"/>
+          <rect x="85" y="190" width="130" height="90" rx="12" fill="#f1f5f9"/>
+          <text x="60" y="340" fill="#334155" font-weight="700" font-size="20">Pastel vibes, playful shapes ✨</text>
+        </svg>
+      </div>
+    </section>
+
+    <section id="resume">
+      <h2 class="section-title">Resume</h2>
+      <p class="section-sub">Add a PDF link or inline highlights. Drop your images into <code>images/</code> and update the <code>src</code> paths.</p>
+      <div class="resume">
+        <div class="card">
+          <h3>Experience</h3>
+          <div class="meta">Princeton CS • Berkeley EEP • BMT</div>
+          <ul class="list">
+            <li><span class="dot"></span><div><strong>Project Lead</strong> — Education Nonprofit (2024–present)<br/><span class="meta">Data pipeline for student outcomes; dashboards; sponsor outreach</span></div></li>
+            <li><span class="dot" style="background:var(--peach)"></span><div><strong>Software Intern</strong> — Cloud/DevOps (2024)<br/><span class="meta">Terraform modules, EventBridge automations, IAM roles</span></div></li>
+            <li><span class="dot" style="background:var(--lav)"></span><div><strong>Tournament Director</strong> — BMT (2025)<br/><span class="meta">Budgeting $50k+, recruiting sponsors, logistics</span></div></li>
+          </ul>
+          <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="btn" href="resume.pdf" download>⬇️ Download PDF</a>
+            <a class="btn" href="#contact">Contact</a>
+          </div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden">
+          <img src="images/headshot.jpg" alt="Portrait of Elsie" style="width:100%;height:100%;object-fit:cover"/>
+        </div>
+      </div>
+    </section>
+
+    <section id="photos" style="margin-top:28px">
+      <h2 class="section-title">Photography</h2>
+      <p class="section-sub">A curated grid — click any photo to view large.</p>
+      <div class="grid">
+        <figure class="ph span-8"><img src="images/mary.png" alt="Photo 1"/></figure>
+        <figure class="ph span-4"><img src="images/chinatown.JPG" alt="Photo 2"/></figure>
+        <figure class="ph span-6"><img src="images/hk.JPG" alt="Photo 3"/></figure>
+        <figure class="ph span-6"><img src="images/parrots.JPG" alt="Photo 4"/></figure>
+        <figure class="ph span-4"><img src="images/chinatrip.JPG" alt="Photo 5"/></figure>
+        <figure class="ph span-4"><img src="images/princeton.JPG" alt="Photo 6"/></figure>
+        <figure class="ph span-4"><img src="images/tahoe.JPG" alt="Photo 7"/></figure>
+        <figure class="ph span-12 ph"><img src="images/berkeley.JPG" alt="Photo 8"/></figure>
+      </div>
+    </section>
+
+    <section id="tutoring" style="margin-top:28px">
+      <h2 class="section-title">Tutoring</h2>
+      <p class="section-sub">Math, CS, and test prep — tailored to how you learn.</p>
+      <div class="tutor-wrap">
+        <div class="card" style="padding:20px">
+          <span class="badge">1:1 & small group</span>
+          <h3 style="margin:8px 0 8px">Support for learners at every level</h3>
+          <p class="meta">I focus on intuition, pattern‑finding, and spaced practice. Sessions are structured with clear goals and take‑home drills.</p>
+          <div class="features">
+            <div class="feat"><strong>Math</strong><br/><span class="meta">Algebra → Calculus, probability</span></div>
+            <div class="feat" style="background:color-mix(in oklab,var(--card) 70%, var(--lav) 30%)"><strong>CS</strong><br/><span class="meta">Python, data structures, LeetCode</span></div>
+            <div class="feat" style="background:color-mix(in oklab,var(--card) 70%, var(--peach) 30%)"><strong>Test Prep</strong><br/><span class="meta">SAT/ACT strategy & review</span></div>
+            <div class="feat" style="background:color-mix(in oklab,var(--card) 70%, var(--pink) 30%)"><strong>Projects</strong><br/><span class="meta">Portfolio guidance & code reviews</span></div>
+          </div>
+          <div class="cta" style="margin-top:14px">
+            <a class="btn primary" href="mailto:hello@example.com?subject=Tutoring%20Inquiry">Email to book</a>
+            <a class="btn" href="#contact">More info</a>
+          </div>
+        </div>
+        <div class="card" style="overflow:hidden">
+          <img src="images/berkeley.JPG" alt="Tutoring session" style="width:100%;height:100%;object-fit:cover"/>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:28px">
+      <h2 class="section-title">Contact</h2>
+      <p class="section-sub">Questions, bookings, collaboration ideas — I’m all ears.</p>
+      <div class="card" style="padding:20px;display:grid;gap:10px">
+        <div><strong>Email</strong>: <a href="mailto:marylaska@berkeley.edu">marylaska@berkeley.edu</a></div>
+        <div><strong>GitHub</strong>: <a href="https://github.com/" target="_blank" rel="noopener">@panda41983</a></div>
+        <div><strong>Instagram</strong>: <a href="#" target="_blank" rel="noopener">@your‑photos</a></div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="y"></span> Elsie Bee • Crafted with pastel joy
+    </footer>
+  </main>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+    <button aria-label="Close">✕</button>
+    <img alt="Expanded photo" />
+  </div>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+    const closeBtn = lb.querySelector('button');
+
+    function openLB(src, alt){
+      lbImg.src = src; lbImg.alt = alt || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+    }
+    function closeLB(){
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden','true');
+      lbImg.src = '';
+    }
+
+    document.querySelectorAll('.grid .ph img').forEach(img => {
+      img.addEventListener('click', () => openLB(img.src, img.alt));
+    });
+    closeBtn.addEventListener('click', closeLB);
+    lb.addEventListener('click', (e) => { if(e.target === lb) closeLB(); });
+    window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') closeLB(); });
+  </script>
+</body>
+</html>
