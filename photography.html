@@ -1,0 +1,269 @@
+---
+layout: null
+permalink: /photography
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photography — Mary Laska</title>
+  <meta name="description" content="Photography by Mary Laska" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #555555;
+      --border: #000000;
+      --border-light: #dddddd;
+      --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      --font-body: Georgia, 'Times New Roman', serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font: 16px/1.7 var(--font-body);
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* --- Header / Nav --- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+    }
+    .nav-name {
+      font-family: var(--font-heading);
+      font-size: 20px;
+      font-weight: 700;
+      text-decoration: none;
+      color: var(--text);
+    }
+    nav { display: flex; gap: 4px; }
+    nav a {
+      padding: 6px 12px;
+      font-family: var(--font-body);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      text-decoration: none;
+      color: var(--text);
+    }
+    nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+    nav a.active { text-decoration: underline; text-underline-offset: 4px; }
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: var(--text);
+    }
+
+    /* --- Page Content --- */
+    .page-title {
+      font-family: var(--font-heading);
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700;
+      margin: 48px 0 32px;
+    }
+
+    /* --- Photo Grid --- */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      padding-bottom: 64px;
+    }
+    .photo-item {
+      border: 1px solid var(--border);
+      background: var(--bg);
+      cursor: pointer;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+    }
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+    .photo-item:hover img { opacity: 0.85; }
+
+    /* --- Lightbox --- */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      z-index: 100;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox img {
+      max-width: min(1100px, 92vw);
+      max-height: 85vh;
+    }
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
+      cursor: pointer;
+      font-family: var(--font-body);
+      display: grid;
+      place-items: center;
+    }
+    .lightbox-close:hover { background: var(--text); color: var(--bg); }
+
+    /* --- Footer --- */
+    footer {
+      border-top: 1px solid var(--border-light);
+      padding: 24px 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    /* --- Mobile --- */
+    @media (max-width: 768px) {
+      .nav-toggle { display: flex; }
+      nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border-light);
+        flex-direction: column;
+        padding: 8px 24px 16px;
+      }
+      nav.open { display: flex; }
+      nav a { padding: 10px 0; border-bottom: 1px solid var(--border-light); }
+      nav a:last-child { border-bottom: none; }
+      .photo-grid { grid-template-columns: 1fr; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav-container">
+      <a href="/" class="nav-name">Mary Laska</a>
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav>
+        <a href="/#home">Home</a>
+        <a href="/#experience">Experience</a>
+        <a href="/#projects">Projects</a>
+        <a href="/#contact">Contact</a>
+        <a href="/photography" class="active">Photography</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Photography</h1>
+
+    <div class="photo-grid">
+      {% assign images = site.static_files | where_exp: "file", "file.path contains '/images/'" %}
+      {% for image in images %}
+        {% assign ext = image.extname | downcase %}
+        {% if ext == '.jpg' or ext == '.jpeg' or ext == '.png' or ext == '.gif' or ext == '.webp' %}
+        <figure class="photo-item">
+          <img src="{{ image.path }}" alt="{{ image.basename }}" loading="lazy" />
+        </figure>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </main>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img alt="Expanded photo" />
+  </div>
+
+  <footer>
+    <div class="container">
+      &copy; <span id="y"></span> Mary Laska
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const toggle = document.querySelector('.nav-toggle');
+    const nav = document.querySelector('nav');
+    toggle.addEventListener('click', () => {
+      const open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+    nav.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    const lbImg = lb.querySelector('img');
+    const lbClose = lb.querySelector('.lightbox-close');
+
+    document.querySelectorAll('.photo-item img').forEach(img => {
+      img.addEventListener('click', () => {
+        lbImg.src = img.src;
+        lbImg.alt = img.alt;
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      lbImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+  </script>
+</body>
+</html>
