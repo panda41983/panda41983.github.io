@@ -4,422 +4,734 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mary Laska</title>
-  <meta name="description" content="Software engineer, UC Berkeley CS & Environmental Economics & Policy" />
+  <meta name="description" content="Mary Laska — Software engineer, UC Berkeley CS & Environmental Economics & Policy" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #111111;
-      --muted: #555555;
-      --border: #000000;
-      --border-light: #dddddd;
-      --font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
-      --font-body: Georgia, 'Times New Roman', serif;
+      --bg: #efe8d8;
+      --panel: #e6dcc4;
+      --card: #fbf7ed;
+      --ink: #211d16;
+      --muted: #756c5b;
+      --line: #d8cdb6;
+      --line-soft: #e3dac7;
+      --dark: #1b1813;
+      --dark-2: #2a261e;
+      --accent: #e0683a;
+      --accent-2: #c2547f;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-mono: 'Space Mono', 'SFMono-Regular', Consolas, monospace;
+      --font-body: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+      --g1: linear-gradient(135deg, #ffd6a5 0%, #fd9d8f 55%, #f37ea0 100%);
+      --g2: linear-gradient(135deg, #c8b6ff 0%, #b8d0ff 50%, #a0e7e5 100%);
+      --g3: linear-gradient(135deg, #a8e6cf 0%, #7fd8d3 55%, #6db3e0 100%);
+      --g4: linear-gradient(135deg, #ffe5a0 0%, #ffc18e 55%, #ff9a8b 100%);
+      --g5: linear-gradient(135deg, #ffc3e1 0%, #d6a8ff 55%, #a7b8ff 100%);
+      --g6: linear-gradient(135deg, #bdf0d4 0%, #b8e0ff 50%, #d8c4ff 100%);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
-      font: 16px/1.7 var(--font-body);
-      color: var(--text);
+      font: 17px/1.65 var(--font-body);
+      color: var(--ink);
       background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+
+    /* ---- Layout ---- */
+    .layout {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 0;
+      max-width: 1280px;
+      margin: 0 auto;
+      min-height: 100vh;
     }
 
-    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-
-    /* --- Header / Nav --- */
-    header {
+    /* ---- Sidebar ---- */
+    aside {
       position: sticky;
       top: 0;
-      z-index: 50;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border-light);
+      align-self: start;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 40px 34px;
+      display: flex;
+      flex-direction: column;
     }
-    .nav-container {
+    aside::-webkit-scrollbar { width: 0; }
+
+    .flair {
+      font-size: 22px;
+      letter-spacing: 4px;
+      margin-bottom: 26px;
+      user-select: none;
+    }
+    .flair .d1 { color: var(--accent); }
+    .flair .d2 { color: var(--accent-2); }
+    .flair .d3 { color: #5aa9e6; }
+
+    .name {
+      font-family: var(--font-display);
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.02;
+      letter-spacing: -0.015em;
+      margin-bottom: 14px;
+    }
+    .role {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 22px;
+    }
+    .bio {
+      font-size: 16px;
+      line-height: 1.55;
+      color: #3a352b;
+      margin-bottom: 30px;
+      max-width: 30ch;
+    }
+    .bio a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1.5px solid rgba(224,104,58,0.35);
+    }
+    .bio a:hover { border-bottom-color: var(--accent); }
+    .sprout { font-size: 15px; }
+
+    /* explore nav box */
+    .explore {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 14px 10px;
+      margin-bottom: 26px;
+    }
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0 6px 10px;
+    }
+    .explore a {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 56px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      text-decoration: none;
+      padding: 9px 10px;
+      border-radius: 9px;
+      color: var(--ink);
+      transition: background 0.15s, transform 0.15s;
     }
-    .nav-name {
-      font-family: var(--font-heading);
+    .explore a .arrow { opacity: 0; transform: translateX(-4px); transition: opacity .15s, transform .15s; }
+    .explore a:hover, .explore a.active { background: rgba(27,24,19,0.07); }
+    .explore a:hover .arrow, .explore a.active .arrow { opacity: 1; transform: translateX(0); }
+
+    .outbound { margin-top: auto; padding-top: 26px; }
+    .outbound .links {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 1.9;
+      color: #3a352b;
+    }
+    .outbound .links a { text-decoration: none; border-bottom: 1.5px solid transparent; }
+    .outbound .links a:hover { border-bottom-color: var(--ink); }
+    .clock {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 18px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ---- Main ---- */
+    main {
+      padding: 40px 44px 80px;
+      border-left: 1px solid var(--line);
+      min-width: 0;
+    }
+
+    /* latest log card */
+    .log {
+      background: var(--dark);
+      color: #f3ecdd;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin-bottom: 44px;
+    }
+    .log-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #b9b0a0;
+      margin-bottom: 12px;
+    }
+    .log-top .date { color: #8a8273; }
+    .log p { font-size: 16.5px; line-height: 1.55; color: #ece4d4; }
+    .log a { color: #ffd9a0; text-decoration: none; border-bottom: 1px solid rgba(255,217,160,0.4); }
+    .log a:hover { border-bottom-color: #ffd9a0; }
+
+    /* section heading */
+    .sec { scroll-margin-top: 28px; margin-bottom: 56px; }
+    .sec-head {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .sec-head h2 {
+      font-family: var(--font-display);
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .sec-head .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .sec-head .rule { flex: 1; height: 1px; background: var(--line); align-self: center; }
+
+    /* card grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(40,33,20,0.12); }
+    .thumb {
+      position: relative;
+      height: 92px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding: 12px 14px;
+    }
+    .thumb .no {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: rgba(27,24,19,0.55);
+      background: rgba(255,255,255,0.55);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+    .thumb .emoji { font-size: 24px; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.12)); }
+    .g1{background:var(--g1)} .g2{background:var(--g2)} .g3{background:var(--g3)}
+    .g4{background:var(--g4)} .g5{background:var(--g5)} .g6{background:var(--g6)}
+
+    .card-body { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+    .pills { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .pill {
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.5);
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+    .card h3 {
+      font-family: var(--font-display);
       font-size: 20px;
       font-weight: 700;
-      text-decoration: none;
-      color: var(--text);
-    }
-    nav { display: flex; gap: 4px; }
-    nav a {
-      padding: 6px 12px;
-      font-family: var(--font-body);
-      font-size: 13px;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      color: var(--text);
-    }
-    nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 8px;
-    }
-    .nav-toggle span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--text);
-    }
-
-    /* --- Sections --- */
-    section { scroll-margin-top: 72px; padding: 72px 0; }
-    section + section { border-top: 1px solid var(--border-light); }
-    h1 {
-      font-family: var(--font-heading);
-      font-size: clamp(36px, 5vw, 52px);
-      font-weight: 700;
       line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
+      margin-bottom: 3px;
     }
-    h2 {
-      font-family: var(--font-heading);
-      font-size: clamp(24px, 3vw, 32px);
-      font-weight: 700;
-      margin-bottom: 32px;
-      padding-bottom: 12px;
-      border-bottom: 2px solid var(--border);
+    .card .org {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.03em;
+      margin-bottom: 12px;
     }
+    .card ul { padding-left: 16px; font-size: 14.5px; line-height: 1.5; color: #3a352b; }
+    .card li { margin-bottom: 6px; }
+    .card li:last-child { margin-bottom: 0; }
+    .card .blurb { font-size: 14.5px; line-height: 1.5; color: #3a352b; }
 
-    /* --- Hero --- */
-    .hero-subtitle {
-      font-size: clamp(16px, 2vw, 20px);
+    /* about */
+    .about-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px 26px;
+    }
+    .about-card p { font-size: 16.5px; line-height: 1.6; margin-bottom: 18px; }
+    .about-card p:last-of-type { margin-bottom: 0; }
+    .subhead {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
       color: var(--muted);
-      margin-bottom: 4px;
+      margin: 24px 0 12px;
     }
-    .hero-degrees {
-      font-size: clamp(15px, 1.8vw, 18px);
-      color: var(--muted);
-      margin-bottom: 4px;
-    }
-    .hero-gpa {
-      font-size: 15px;
-      color: var(--muted);
-      margin-bottom: 28px;
-    }
-    .hero-detail h3 {
-      font-family: var(--font-heading);
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-    .hero-detail p {
-      color: var(--muted);
-      font-size: 15px;
-      margin-bottom: 20px;
-    }
-    .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+    .skills { display: flex; flex-wrap: wrap; gap: 7px; }
+    .skills .pill { font-size: 11px; padding: 5px 11px; color: var(--ink); }
+    .skills .pill:nth-child(6n+1){ background: rgba(253,157,143,0.18); }
+    .skills .pill:nth-child(6n+2){ background: rgba(168,230,207,0.22); }
+    .skills .pill:nth-child(6n+3){ background: rgba(200,182,255,0.22); }
+    .skills .pill:nth-child(6n+4){ background: rgba(255,209,160,0.25); }
+    .skills .pill:nth-child(6n+5){ background: rgba(184,208,255,0.22); }
+    .skills .pill:nth-child(6n+6){ background: rgba(255,195,225,0.22); }
 
-    /* --- Buttons --- */
-    .btn {
-      display: inline-block;
-      padding: 12px 24px;
-      font-family: var(--font-body);
-      font-size: 14px;
+    /* organizations */
+    .orgs { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 20px; }
+    .org-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px 22px;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+    .org-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(40,33,20,0.12); }
+    .org-top { display: flex; align-items: center; gap: 13px; margin-bottom: 14px; }
+    .badge {
+      width: 46px; height: 46px; flex: none;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      font-size: 23px;
+      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+    }
+    .org-card h3 { font-family: var(--font-display); font-size: 19px; font-weight: 700; line-height: 1.12; }
+    .org-card .role { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); letter-spacing: 0.03em; margin-top: 3px; }
+    .org-card p { font-size: 14.5px; line-height: 1.55; color: #3a352b; margin-bottom: 14px; }
+    .terms { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .terms li {
+      font-family: var(--font-mono); font-size: 11.5px; color: #3a352b; line-height: 1.45;
+      position: relative; padding-left: 16px;
+    }
+    .terms li::before { content: "›"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .terms li b { color: var(--ink); font-weight: 700; }
+
+    /* contact */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+    .contact-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px 18px;
       text-decoration: none;
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: var(--bg);
-      cursor: pointer;
-      transition: background 0.15s, color 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: transform 0.16s, box-shadow 0.16s;
     }
-    .btn:hover { background: var(--text); color: var(--bg); }
-    .btn-primary {
-      background: var(--text);
-      color: var(--bg);
+    .contact-card:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(40,33,20,0.1); }
+    .contact-card .ico {
+      width: 38px; height: 38px; flex: none;
+      border-radius: 10px;
+      display: grid; place-items: center;
+      color: var(--dark);
     }
-    .btn-primary:hover { background: var(--bg); color: var(--text); }
+    .contact-card .ci-1{background:var(--g1)} .contact-card .ci-2{background:var(--g3)} .contact-card .ci-3{background:var(--g5)}
+    .contact-card .label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .contact-card .val { font-size: 15px; word-break: break-word; }
 
-    /* --- Experience --- */
-    .experience-entry { padding: 24px 0; border-bottom: 1px solid var(--border-light); }
-    .experience-entry:last-child { border-bottom: none; }
-    .experience-header {
+    .colophon {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 56px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
       display: flex;
       justify-content: space-between;
-      align-items: baseline;
       flex-wrap: wrap;
       gap: 8px;
     }
-    .experience-header h3 {
-      font-family: var(--font-heading);
-      font-size: 19px;
-      font-weight: 600;
-    }
-    .experience-date {
-      font-size: 14px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-    .experience-company {
-      color: var(--muted);
-      font-size: 15px;
-      margin: 2px 0 10px;
-    }
-    .experience-entry ul {
-      padding-left: 20px;
-      font-size: 15px;
-      line-height: 1.65;
-    }
-    .experience-entry li { margin-bottom: 4px; }
 
-    /* --- Projects --- */
-    .project-entry { padding: 24px 0; border-bottom: 1px solid var(--border-light); }
-    .project-entry:last-child { border-bottom: none; }
-    .project-header {
-      display: flex;
-      align-items: baseline;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 8px;
-    }
-    .project-header h3 {
-      font-family: var(--font-heading);
-      font-size: 19px;
-      font-weight: 600;
-    }
-    .project-tech {
-      font-size: 13px;
-      color: var(--muted);
-      border: 1px solid var(--border-light);
-      padding: 2px 10px;
-    }
-    .project-entry ul {
-      padding-left: 20px;
-      font-size: 15px;
-      line-height: 1.65;
-    }
-    .project-entry li { margin-bottom: 4px; }
+    /* mobile toggle (hidden on desktop) */
+    .mtop { display: none; }
 
-    /* --- Contact --- */
-    .contact-list p {
-      font-size: 16px;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-    }
-    .contact-list a {
-      color: var(--text);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-    .contact-list a:hover { color: var(--muted); }
-
-    /* --- Footer --- */
-    footer {
-      border-top: 1px solid var(--border-light);
-      padding: 24px 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* --- Mobile --- */
-    @media (max-width: 768px) {
-      .nav-toggle { display: flex; }
-      nav {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: var(--bg);
-        border-bottom: 1px solid var(--border-light);
-        flex-direction: column;
-        padding: 8px 24px 16px;
+    /* ---- Responsive ---- */
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      aside {
+        position: static;
+        height: auto;
+        padding: 28px 24px 8px;
       }
-      nav.open { display: flex; }
-      nav a { padding: 10px 0; border-bottom: 1px solid var(--border-light); }
-      nav a:last-child { border-bottom: none; }
-      section { padding: 48px 0; }
-      .experience-header { flex-direction: column; gap: 2px; }
+      main { border-left: none; border-top: 1px solid var(--line); padding: 32px 24px 64px; }
+      .outbound { margin-top: 30px; }
+      .name { font-size: 40px; }
+    }
+    @media (max-width: 480px) {
+      .grid { grid-template-columns: 1fr; }
+      .name { font-size: 34px; }
+      main { padding: 28px 18px 56px; }
+      aside { padding: 24px 18px 4px; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="container nav-container">
-      <a href="/" class="nav-name">Mary Laska</a>
-      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#experience">Experience</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-        <a href="/photography">Photography</a>
+  <div class="layout">
+
+    <!-- ===== Sidebar ===== -->
+    <aside>
+      <div class="flair"><span class="d1">✿</span><span class="d2"> ·</span><span class="d3"> ·</span></div>
+
+      <h1 class="name">Mary Laska</h1>
+      <p class="role">CS &amp; Env. Econ @ UC Berkeley</p>
+
+      <p class="bio">
+        I'm a software engineer who loves building tools at the intersection of
+        code, data, and climate. Incoming SDE intern <a href="#work">@Workday</a>,
+        previously <a href="#work">@SF Fed</a> and <a href="#work">@Carbon Sustain</a>.
+        <span class="sprout">🌱</span>
+      </p>
+
+      <nav class="explore" aria-label="Sections">
+        <div class="kicker">Explore</div>
+        <a href="#work"><span>01 &nbsp; My Work</span><span class="arrow">→</span></a>
+        <a href="#projects"><span>02 &nbsp; Projects</span><span class="arrow">→</span></a>
+        <a href="#orgs"><span>03 &nbsp; Organizations</span><span class="arrow">→</span></a>
+        <a href="#about"><span>04 &nbsp; About Me</span><span class="arrow">→</span></a>
+        <a href="#contact"><span>05 &nbsp; Contact</span><span class="arrow">→</span></a>
       </nav>
-    </div>
-  </header>
 
-  <main class="container">
-
-    <!-- Home -->
-    <section id="home">
-      <h1>Mary Laska</h1>
-      <p class="hero-subtitle">University of California, Berkeley &mdash; Class of 2027</p>
-      <p class="hero-degrees">Computer Science, BA &amp; Environmental Economics &amp; Policy, BS</p>
-      <p class="hero-gpa">GPA: 3.99 / 4.00</p>
-
-      <div class="hero-detail">
-        <h3>Skills</h3>
-        <p>R, Python, Java, Angular, Django, React, AWS, SQL, HTML, CSS, UX/UI, Figma, JavaScript, Terraform</p>
-      </div>
-      <div class="hero-detail">
-        <h3>Certifications</h3>
-        <p>AWS Certified Cloud Practitioner</p>
-      </div>
-
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="resume.pdf" download>Download Resume</a>
-        <a class="btn" href="#contact">Contact</a>
-      </div>
-    </section>
-
-    <!-- Experience -->
-    <section id="experience">
-      <h2>Experience</h2>
-
-      <div class="experience-entry">
-        <div class="experience-header">
-          <h3>Software Development Engineer Intern</h3>
-          <span class="experience-date">Summer 2026</span>
+      <div class="outbound">
+        <div class="kicker">Outbound</div>
+        <div class="links">
+          <a href="mailto:marylaska@berkeley.edu">Email</a> &nbsp;·&nbsp;
+          <a href="https://www.linkedin.com/in/marylaska2/" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp;
+          <a href="https://github.com/panda41983" target="_blank" rel="noopener">GitHub</a> &nbsp;·&nbsp;
+          <a href="Mary_Laska_Resume_April_2026.pdf" target="_blank" rel="noopener">Resume</a>
         </div>
-        <p class="experience-company">Workday</p>
+        <div class="clock" id="clock">—:—:—</div>
+      </div>
+    </aside>
+
+    <!-- ===== Main ===== -->
+    <main>
+
+      <!-- latest log -->
+      <div class="log">
+        <div class="log-top"><span>● Latest Log</span><span class="date">May 2026</span></div>
+        <p>
+          Just back from a semester studying abroad at the
+          <strong>University of Edinburgh</strong> 🏴󠁧󠁢󠁳󠁣󠁴󠁿, and I'm headed to
+          <a href="#work">Workday</a> this summer as a Software Development Engineer intern.
+          Right now I'm building <a href="#projects">CampScout</a> and a Slack bot for the
+          Stat 20 course staff.
+        </p>
       </div>
 
-      <div class="experience-entry">
-        <div class="experience-header">
-          <h3>Research Assistant</h3>
-          <span class="experience-date">Aug 2025 &ndash; Jan 2026</span>
+      <!-- ===== Work ===== -->
+      <section class="sec" id="work">
+        <div class="sec-head">
+          <h2>My Work</h2>
+          <span class="tag">experience</span>
+          <span class="rule"></span>
         </div>
-        <p class="experience-company">UC Berkeley &middot; Prof. Ethan Ligon</p>
-        <ul>
-          <li>Contributed to LSMS_Library, an open-source Python package (published on PyPI) providing a unified abstraction layer for World Bank Living Standards Measurement Study household surveys across 40+ countries.</li>
-          <li>Implemented country-specific data ingestion modules for World Bank LSMS microdata, standardizing variable encodings and file formats into a consistent DataFrame interface used by downstream researchers.</li>
-        </ul>
-      </div>
 
-      <div class="experience-entry">
-        <div class="experience-header">
-          <h3>Software Engineer Intern</h3>
-          <span class="experience-date">May 2025 &ndash; Aug 2025</span>
+        <div class="grid">
+
+          <article class="card">
+            <div class="thumb g1"><span class="no">NO. 01</span><span class="emoji">🪐</span></div>
+            <div class="card-body">
+              <div class="pills"><span class="pill">Internship</span><span class="pill">Incoming</span></div>
+              <h3>SDE Intern</h3>
+              <p class="org">Workday · Summer 2026</p>
+              <p class="blurb">Joining as a Software Development Engineer intern this summer.</p>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb g2"><span class="no">NO. 02</span><span class="emoji">📚</span></div>
+            <div class="card-body">
+              <div class="pills"><span class="pill">Research</span><span class="pill">Open Source</span></div>
+              <h3>Research Assistant</h3>
+              <p class="org">UC Berkeley · Prof. Ethan Ligon · 2025–26</p>
+              <ul>
+                <li>Contributed to <strong>LSMS_Library</strong>, an open-source Python package on PyPI providing a unified abstraction layer for World Bank LSMS household surveys across 40+ countries.</li>
+                <li>Built country-specific data ingestion modules, standardizing variable encodings and file formats into a consistent DataFrame interface for downstream researchers.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb g3"><span class="no">NO. 03</span><span class="emoji">☁️</span></div>
+            <div class="card-body">
+              <div class="pills"><span class="pill">Internship</span><span class="pill">AWS</span><span class="pill">DevOps</span></div>
+              <h3>Software Engineer Intern</h3>
+              <p class="org">Federal Reserve Bank of SF · 2025</p>
+              <ul>
+                <li>Built a Grafana + CloudWatch dashboard to monitor real-time health of 7 mission-critical APIs.</li>
+                <li>Automated infra with EventBridge &amp; SSM to detect Secrets Manager changes and summarize Trusted Advisor checks, provisioned via Terraform.</li>
+                <li>Engineered a cross-account ACM certificate-expiry scanner with Lambda &amp; S3, eliminating manual console checks.</li>
+                <li>Migrated runbooks to Confluence; managed GitLab CI/CD and Jira tracking.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb g5"><span class="no">NO. 04</span><span class="emoji">🎓</span></div>
+            <div class="card-body">
+              <div class="pills"><span class="pill">Internship</span><span class="pill">Machine Learning</span></div>
+              <h3>Data Science Intern</h3>
+              <p class="org">Oakland Natives Give Back · 2024–25</p>
+              <ul>
+                <li>Built Random Forest &amp; logistic regression models to predict chronic absenteeism, enabling a projected 25% reduction in target schools.</li>
+                <li>Applied BERT &amp; T5 to classify and summarize teacher notes, folding qualitative insight into risk models.</li>
+                <li>Delivered insights via Matplotlib/Seaborn visualizations and model evaluations.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb g6"><span class="no">NO. 05</span><span class="emoji">🌍</span></div>
+            <div class="card-body">
+              <div class="pills"><span class="pill">Internship</span><span class="pill">GenAI</span><span class="pill">Full Stack</span></div>
+              <h3>Full Stack SWE Intern</h3>
+              <p class="org">Carbon Sustain · 2024</p>
+              <ul>
+                <li>Co-built a GenAI platform extracting scope 1/2/3 emissions for S&amp;P 500 companies via web scraping, OCR, and RAG over unstructured reports.</li>
+                <li>Cut load times 30% by caching parsed OpenAI responses in MySQL, reducing API costs.</li>
+                <li>Managed backend storage with AWS S3 for hundreds of processed documents.</li>
+              </ul>
+            </div>
+          </article>
+
         </div>
-        <p class="experience-company">Federal Reserve Bank of San Francisco</p>
-        <ul>
-          <li>Built a Grafana dashboard integrated with CloudWatch Logs to monitor the real-time health of 7 mission-critical APIs, improving observability and operational reliability for internal users.</li>
-          <li>Developed automated infrastructure using AWS EventBridge and SSM Automation to detect changes in AWS Secrets Manager and summarize failing Trusted Advisor checks; provisioned via Terraform for reproducible deployments.</li>
-          <li>Engineered a cross-account ACM certificate-expiry scanner using Lambda and S3 to aggregate certificate data across environments, eliminating manual console checks and reducing operational monitoring time.</li>
-          <li>Enhanced CloudOps documentation by refining and migrating runbooks and playbooks into Confluence. Managed GitLab CI/CD pipelines, tracked tickets in Jira, and delivered stakeholder reports.</li>
-        </ul>
-      </div>
+      </section>
 
-      <div class="experience-entry">
-        <div class="experience-header">
-          <h3>Statistics Group Tutor</h3>
-          <span class="experience-date">Jan 2024 &ndash; Jan 2026</span>
+      <!-- ===== Projects ===== -->
+      <section class="sec" id="projects">
+        <div class="sec-head">
+          <h2>Projects</h2>
+          <span class="tag">things i built</span>
+          <span class="rule"></span>
         </div>
-        <p class="experience-company">UC Berkeley</p>
-        <ul>
-          <li>Lead weekly office hours and assist 700+ students with statistics concepts and R in Intro to Probability &amp; Statistics.</li>
-        </ul>
-      </div>
 
-      <div class="experience-entry">
-        <div class="experience-header">
-          <h3>Data Science Intern</h3>
-          <span class="experience-date">Sep 2024 &ndash; May 2025</span>
+        <div class="grid">
+
+          <article class="card">
+            <div class="thumb g3"><span class="no">NO. 01</span><span class="emoji">🏕️</span></div>
+            <div class="card-body">
+              <div class="pills"><span class="pill">Full Stack</span><span class="pill">Maps</span><span class="pill">Shipped</span></div>
+              <h3>CampScout</h3>
+              <p class="org"><a href="https://www.campscout.net" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none">campscout.net</a> · Python · FastAPI · Next.js · PostgreSQL · PostGIS · Supabase</p>
+              <ul>
+                <li>Built an interactive map-based campsite search engine querying nearly 900 Recreation.gov and ReserveCalifornia.com campgrounds by location, date range, and availability using PostGIS spatial indexes.</li>
+                <li>Designed a scanner that deduplicates upstream API calls with async background scheduling, diff detection, and an email alert pipeline via Resend.</li>
+                <li>Built a map UI with MapLibre GL JS featuring MapTiler geocoding autocomplete, synchronized list/marker hover states, and Supabase Auth with ES256 JWT verification and automatic user creation.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb g4"><span class="no">NO. 02</span><span class="emoji">🤖</span></div>
+            <div class="card-body">
+              <div class="pills"><span class="pill">In Progress</span><span class="pill">Python</span><span class="pill">Slack API</span></div>
+              <h3>Stat 20 Slack Bot</h3>
+              <p class="org">UC Berkeley · Stat 20 course staff</p>
+              <ul>
+                <li>Building a Slack bot to streamline support and coordination for the Stat 20 (Intro to Probability &amp; Statistics) course staff. Currently in progress.</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="card">
+            <div class="thumb g2"><span class="no">NO. 03</span><span class="emoji">🎮</span></div>
+            <div class="card-body">
+              <div class="pills"><span class="pill">Side Project</span><span class="pill">Java</span></div>
+              <h3>2D Survival Game</h3>
+              <p class="org">Personal · Java</p>
+              <ul>
+                <li>Built a 2D survival game with procedural world generation, player interactivity, and save/load.</li>
+                <li>Implemented survival mechanics, custom tilesets, and an intuitive UI.</li>
+              </ul>
+            </div>
+          </article>
+
         </div>
-        <p class="experience-company">Oakland Natives Give Back</p>
-        <ul>
-          <li>Developed Random Forest and logistic regression models to predict students at risk of chronic absenteeism, enabling proactive interventions and a projected 25% reduction in target schools.</li>
-          <li>Applied BERT and T5 to classify and summarize teacher notes, integrating qualitative insights into risk models for more comprehensive early-intervention strategies.</li>
-          <li>Delivered insights to stakeholders via visualizations (Matplotlib, Seaborn) and model evaluations.</li>
-        </ul>
-      </div>
+      </section>
 
-      <div class="experience-entry">
-        <div class="experience-header">
-          <h3>Full Stack Software Engineer Intern</h3>
-          <span class="experience-date">May 2024 &ndash; Aug 2024</span>
+      <!-- ===== Organizations ===== -->
+      <section class="sec" id="orgs">
+        <div class="sec-head">
+          <h2>Organizations</h2>
+          <span class="tag">communities</span>
+          <span class="rule"></span>
         </div>
-        <p class="experience-company">Carbon Sustain</p>
-        <ul>
-          <li>Co-developed a GenAI-powered platform to extract and display scope 1, 2, and 3 emissions data for S&amp;P 500 companies by web scraping sustainability reports and applying OCR with OpenAI's API. Used Retrieval-Augmented Generation (RAG) to locate emissions figures from unstructured context.</li>
-          <li>Reduced redundant OpenAI calls and improved performance by caching parsed responses in a MySQL database, cutting load times by 30% and minimizing API costs.</li>
-          <li>Managed backend storage and retrieval using AWS S3, enabling secure access to hundreds of processed sustainability reports and financial documents.</li>
-        </ul>
-      </div>
-    </section>
 
-    <!-- Projects -->
-    <section id="projects">
-      <h2>Projects</h2>
+        <div class="orgs">
 
-      <div class="project-entry">
-        <div class="project-header">
-          <h3>2D Survival Game</h3>
-          <span class="project-tech">Java</span>
+          <article class="org-card">
+            <div class="org-top">
+              <span class="badge g3">📊</span>
+              <div>
+                <h3>Stat 20 Course Staff</h3>
+                <p class="role">Statistics Group Tutor · Jan 2024 – Jan 2026</p>
+              </div>
+            </div>
+            <p>
+              Lead weekly office hours and assist 700+ students with statistics concepts
+              and R in Intro to Probability &amp; Statistics. Served as a group tutor for
+              three semesters, and was one of the head tutors in Fall 2025.
+            </p>
+          </article>
+
+          <article class="org-card">
+            <div class="org-top">
+              <span class="badge g5">🏆</span>
+              <div>
+                <h3>Berkeley Math Tournament</h3>
+                <p class="role">Tournament Director &amp; Head of Finance · Aug 2023 – Dec 2025</p>
+              </div>
+            </div>
+            <p>
+              Directed a 30+ person logistics team for 1,000+ participant math competitions.
+              Led the finance team managing a $50,000+ budget and secured $25,000+ in sponsorships.
+            </p>
+            <ul class="terms">
+              <li><b>Fall 2023 &amp; Spring 2024</b> — Member</li>
+              <li><b>Fall 2024</b> — Finance Team Lead</li>
+              <li><b>Spring 2025 &amp; Fall 2025</b> — Tournament Director &amp; Finance Team Lead</li>
+              <li><b>Spring 2026</b> — Studying abroad</li>
+            </ul>
+          </article>
+
         </div>
-        <ul>
-          <li>Developed a 2D survival game featuring world generation, player interactivity, and save/load capabilities.</li>
-          <li>Implemented survival mechanics, custom tilesets, and an intuitive user interface.</li>
-        </ul>
-      </div>
-    </section>
+      </section>
 
-    <!-- Contact -->
-    <section id="contact">
-      <h2>Contact</h2>
-      <div class="contact-list">
-        <p><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-2px;margin-right:6px"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg><a href="mailto:marylaska@berkeley.edu">marylaska@berkeley.edu</a></p>
-        <p><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:6px"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg><a href="https://github.com/panda41983" target="_blank" rel="noopener">github.com/panda41983</a></p>
-        <p><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:-2px;margin-right:6px"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><a href="https://linkedin.com/in/marylaska" target="_blank" rel="noopener">linkedin.com/in/marylaska</a></p>
-      </div>
-    </section>
+      <!-- ===== About ===== -->
+      <section class="sec" id="about">
+        <div class="sec-head">
+          <h2>About Me</h2>
+          <span class="tag">hello!</span>
+          <span class="rule"></span>
+        </div>
 
-  </main>
+        <div class="about-card">
+          <p>
+            I'm a junior at UC Berkeley pursuing a <strong>BA in Computer Science</strong> and a
+            <strong>BS in Environmental Economics &amp; Policy</strong> (Class of 2027).
+          </p>
+          <p>
+            I just finished a semester studying abroad at the <strong>University of Edinburgh</strong>,
+            and outside of class I help run the Berkeley Math Tournament and tutor for Stat 20.
+          </p>
 
-  <footer>
-    <div class="container">
-      &copy; <span id="y"></span> Mary Laska
-    </div>
-  </footer>
+          <div class="subhead">Languages</div>
+          <div class="skills">
+            <span class="pill">Python</span><span class="pill">Java</span><span class="pill">C</span>
+            <span class="pill">C++</span><span class="pill">R</span><span class="pill">SQL</span>
+            <span class="pill">HTML</span><span class="pill">CSS</span><span class="pill">NumPy</span>
+            <span class="pill">PyTorch</span>
+          </div>
+
+          <div class="subhead">Frameworks &amp; Libraries</div>
+          <div class="skills">
+            <span class="pill">React</span><span class="pill">Next.js</span><span class="pill">FastAPI</span>
+            <span class="pill">Django</span><span class="pill">Angular</span><span class="pill">Node.js</span>
+            <span class="pill">Tailwind</span>
+          </div>
+
+          <div class="subhead">Tools &amp; Infrastructure</div>
+          <div class="skills">
+            <span class="pill">AWS (Certified Cloud Practitioner)</span><span class="pill">Terraform</span><span class="pill">PostgreSQL</span>
+            <span class="pill">Docker</span><span class="pill">Git</span><span class="pill">CI/CD</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Contact ===== -->
+      <section class="sec" id="contact">
+        <div class="sec-head">
+          <h2>Contact</h2>
+          <span class="tag">say hi</span>
+          <span class="rule"></span>
+        </div>
+
+        <div class="contact-grid">
+          <a class="contact-card" href="mailto:marylaska@berkeley.edu">
+            <span class="ico ci-1">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </span>
+            <span><span class="label">Email</span><br><span class="val">marylaska@berkeley.edu</span></span>
+          </a>
+
+          <a class="contact-card" href="https://github.com/panda41983" target="_blank" rel="noopener">
+            <span class="ico ci-2">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            </span>
+            <span><span class="label">GitHub</span><br><span class="val">@panda41983</span></span>
+          </a>
+
+          <a class="contact-card" href="https://www.linkedin.com/in/marylaska2/" target="_blank" rel="noopener">
+            <span class="ico ci-3">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </span>
+            <span><span class="label">LinkedIn</span><br><span class="val">in/marylaska2</span></span>
+          </a>
+        </div>
+
+        <div class="colophon">
+          <span>© <span id="y"></span> Mary Laska</span>
+          <span>Built with HTML, CSS &amp; a little ☕</span>
+        </div>
+      </section>
+
+    </main>
+  </div>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    const toggle = document.querySelector('.nav-toggle');
-    const nav = document.querySelector('nav');
-    toggle.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open);
-    });
-    nav.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        nav.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
+    // live clock in sidebar
+    const clock = document.getElementById('clock');
+    function tick() {
+      clock.textContent = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit' });
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    // active nav highlighting
+    const links = [...document.querySelectorAll('.explore a[href^="#"]')];
+    const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          links.forEach(a => a.classList.remove('active'));
+          const a = map.get(e.target.id);
+          if (a) a.classList.add('active');
+        }
       });
-    });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    document.querySelectorAll('section.sec').forEach(s => obs.observe(s));
   </script>
 </body>
 </html>
